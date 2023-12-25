@@ -7,8 +7,7 @@ ColorFieldFunction is a simple and fast solution of setting color light field.
 
 | Sample_1  | Sample_2  |
 |---|---|
-|  ![](Images/Sample_1 v1.0.png) | ![](Images/Sample_2 v1.0.png)  |
-|---|---|
+|  ![](Images/Sample_1.png) | ![](Images/Sample_2.png)  |
 |  ![](Images/Sample_1.gif) | ![](Images/Sample_2.gif)  |
 
 

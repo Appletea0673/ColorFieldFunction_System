@@ -16,4 +16,4 @@ Booth link -> https://appleteaworkshop.booth.pm/items/5371812
 
 
 ## Environment
-Unity 2019.4.31f1 LTS
+Unity 2019.4.31f1 LTS ～ Unity 2022.3.6f1 LTS

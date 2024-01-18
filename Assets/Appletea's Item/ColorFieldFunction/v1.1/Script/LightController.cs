@@ -82,7 +82,7 @@ public class LightController : UdonSharpBehaviour
 
     private void OnEnable()
     {
-        //↓Awakeに入れたら壊れた。なんで？
+        //↓Awakeに入れたら壊れた。何故？
         //1つ上の階層にあるObjectContainerを取ってくる
         ObjectContainer OC = this.gameObject.GetComponentInParent<ObjectContainer>();
         //GetterでContainerからデータを取得
@@ -134,7 +134,7 @@ public class LightController : UdonSharpBehaviour
         //SceneChanger起動
         if (SceneChangerEnable && (InterpolationType == 2 || InterpolationType == 3) && scenechanger != null)
         {
-            Debug.Log("Trough");
+            //Debug.Log("Trough");
             scenechanger.gameObject.SetActive(true);
             scenechanger.CallSceneChange(FadeTime, InterpolationType, this.GetComponent<LightController>(), LightController_Next, _sharedMaterials);
         }

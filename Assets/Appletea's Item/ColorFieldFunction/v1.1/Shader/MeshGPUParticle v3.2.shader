@@ -1,4 +1,4 @@
-﻿Shader "Appletea's Shader/MeshGPUParticle v3.0"
+﻿Shader "Appletea's Shader/MeshGPUParticle v3.2"
 {
 	Properties
 	{
@@ -65,8 +65,8 @@
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
 				//Single Path Stereo処理
-                UNITY_VERTEX_OUTPUT_STEREO
 				UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			struct g2f
@@ -87,17 +87,14 @@
 				v2g o;
 				//Single Path Stereo and GPU Instancing処理
                 UNITY_SETUP_INSTANCE_ID(v);
-				#ifdef SOFTPARTICLES_ON
-                    o.projPos = ComputeScreenPos(o.vertex);
-                    COMPUTE_EYEDEPTH(o.projPos.z);
-                #endif
-                UNITY_INITIALIZE_OUTPUT(v2g, o);
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 				UNITY_TRANSFER_INSTANCE_ID(v, o);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+                
 				o.vertex = v.vertex;
 				o.uv = v.uv.xy;
 				return o;
 			}
+			
 			
 			//GPUInstancing用パラメータ
 			UNITY_INSTANCING_BUFFER_START(Props)
@@ -184,7 +181,7 @@
 
 			fixed4 frag(g2f i) : SV_Target
 			{
-				// setup instance id to be accessed
+				//Single Path Stereo and GPU Instancing処理
                 UNITY_SETUP_INSTANCE_ID(i);
 				
 				float3 cp = mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz;//Objectのセンターポイントを取得
@@ -195,6 +192,7 @@
 				color.rgb *= pow(max(0, 0.5 - i.d) + 1 - l, 0.5) * 2;
 				color.rgb = min(1, color);
 				color.rgb = pow(color, 2.2);
+				
 				return float4(color.rgb,smoothstep(1,0.8,l) * color.a);
 			}
 			ENDCG

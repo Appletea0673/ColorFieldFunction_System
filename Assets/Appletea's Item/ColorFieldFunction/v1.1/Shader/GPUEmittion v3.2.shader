@@ -1,9 +1,15 @@
-﻿Shader "Appletea's Shader/GPUEmittion v3.0"
+﻿Shader "Appletea's Shader/GPUEmittion v3.2"
 {
 	Properties
 	{
 		[Header(Texture)]
 		_MainTex("Texture", 2D) = "white" {}
+		[Space(10)]
+		
+		[Header(SoftParticle)]
+		[Toggle]_SoftParticles("Toggle Soft Particles", Float) = 0.0
+		_SoftParticlesNearFadeDistance("Soft Particles Near Fade", Range(0, 10)) = 0.0
+        _SoftParticlesFarFadeDistance("Soft Particles Far Fade", Range(0,10)) = 1.0
 		[Space(10)]
 		
 		[Header(Color Field Function Settings)]
@@ -48,6 +54,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma multi_compile_instancing
+			#pragma shader_feature _SOFTPARTICLES_ON
 			
 			#include "UnityCG.cginc"
 			#include "ColorFieldFunction.cginc"
@@ -66,32 +73,39 @@
 				fixed4 color : COLOR;
 				float2 uv : TEXCOORD0;
 				float4 pos :TEXCOORD1;
+				#ifdef _SOFTPARTICLES_ON
+                    float4 projPos :TEXCOORD2;
+                #endif
 				//Single Path Stereo処理
-                UNITY_VERTEX_OUTPUT_STEREO
 				UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
 			};
+			
 			
 			v2f vert(appdata v)
 			{
 				v2f o;
 				//Single Path Stereo and GPU Instancing処理
                 UNITY_SETUP_INSTANCE_ID(v);
-				#ifdef SOFTPARTICLES_ON
+				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				UNITY_TRANSFER_INSTANCE_ID(v, o);
+                
+				o.vertex = UnityObjectToClipPos(v.vertex);
+				#ifdef _SOFTPARTICLES_ON
                     o.projPos = ComputeScreenPos(o.vertex);
                     COMPUTE_EYEDEPTH(o.projPos.z);
                 #endif
-                UNITY_INITIALIZE_OUTPUT(v2f, o);
-				UNITY_TRANSFER_INSTANCE_ID(v, o);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.color = v.color;
 				o.uv = v.uv;
 				o.pos = mul(unity_ObjectToWorld, v.vertex);
 				return o;
 			}
 			
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
+			uniform sampler2D _MainTex;
+			uniform float4 _MainTex_ST;
+			UNITY_DECLARE_DEPTH_TEXTURE(_CameraDepthTexture);
+			uniform float _SoftParticlesNearFadeDistance;
+			uniform float _SoftParticlesFarFadeDistance;
 			
 			//GPUInstancing用パラメータ
 			UNITY_INSTANCING_BUFFER_START(Props)
@@ -112,7 +126,7 @@
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				// setup instance id to be accessed
+				//Single Path Stereo and GPU Instancing処理
                 UNITY_SETUP_INSTANCE_ID(i);
 				
 				float4 color = UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
@@ -132,6 +146,15 @@
 				//			Field Function 演算区画					//
 				//Active ColorとPassive ColorをFieldfunctionを使って線形補完
 				color = ColorFieldFunction(color, PassiveColor, i.pos - CenterPosition, _rot, width, flatMode, dotMode, Shape, interval, Mode, speed, waveFreq, mShift);
+				
+				#ifdef _SOFTPARTICLES_ON
+					if (_SoftParticlesNearFadeDistance > 0.0 || _SoftParticlesFarFadeDistance > 0.0)
+					{
+						float sceneZ = LinearEyeDepth (SAMPLE_DEPTH_TEXTURE_PROJ(_CameraDepthTexture, UNITY_PROJ_COORD(i.projPos)));
+						float softParticlesFade = saturate (_SoftParticlesFarFadeDistance * ((sceneZ - _SoftParticlesNearFadeDistance) - i.projPos.z));
+						color.a *= softParticlesFade;
+					}
+                #endif
 				
 				return tex2D(_MainTex, i.uv) * color * i.color;
 			}

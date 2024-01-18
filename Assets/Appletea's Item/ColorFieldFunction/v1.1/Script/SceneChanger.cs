@@ -37,7 +37,7 @@ public class SceneChanger : UdonSharpBehaviour
     //LightControllerから呼び出されるときの処理
     public void CallSceneChange(float _ChangeTime, int _FlagType, LightController _LightController_Origin, LightController _LightController_Next, Material[] _WriteMaterial)
     {
-        UnityEngine.Debug.Log("Called");
+        //UnityEngine.Debug.Log("Called");
         //Private変数に移す
         //途中割込みは演出の表現を考えてある程度許可する
         if (!Callflag)
@@ -137,7 +137,7 @@ public class SceneChanger : UdonSharpBehaviour
         {
             //線形補間に利用する0～1のパラメータ
             float ChangeParameter = Mathf.Clamp01((Time.time - LastTime) / ChangeTime);
-            UnityEngine.Debug.Log(ChangeParameter);
+            //UnityEngine.Debug.Log(ChangeParameter);
             WriteParameter(ChangeParameter);
             if(ChangeParameter >= 1)
             {

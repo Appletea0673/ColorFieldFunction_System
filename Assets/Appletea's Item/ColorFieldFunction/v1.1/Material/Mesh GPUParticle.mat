@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Mesh GPUParticle
-  m_Shader: {fileID: 4800000, guid: 2cf8f6df8c924f2469d9cc16cea654dc, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4b66f1a144c80c64da539cef90d2b2f7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1

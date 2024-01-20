@@ -1,6 +1,7 @@
 # ColorFieldFunction_System
 ColorFieldFunction is a simple and fast solution of setting color light field.
 
+You can get module of latest version here!<br>
 Booth link -> https://appleteaworkshop.booth.pm/items/5371812
 
 ### Scripts

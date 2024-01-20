@@ -91,6 +91,9 @@ public class LightController : UdonSharpBehaviour
 
         bool EnableSceneChanger = SceneChangerEnable && InterpolationType == 1 && scenechanger != null;
 
+        //CFFシステム全体の座標を変えた際にCenterPositionを変えないようにするOffset
+        Vector3 OffsetPos = this.transform.position;
+
         for (int i = 0; i < _sharedMaterials.Length; i++)
         {
             Material m = _sharedMaterials[i];
@@ -98,7 +101,7 @@ public class LightController : UdonSharpBehaviour
             {
                 m.SetColor("_Color", ActiveColor);
                 m.SetColor("_PassiveColor", PassiveColor);
-                m.SetVector("_CenterPosition", new Vector4(CenterPosition.x, CenterPosition.y, CenterPosition.z, 0));
+                m.SetVector("_CenterPosition", new Vector4(CenterPosition.x + OffsetPos.x, CenterPosition.y + OffsetPos.y, CenterPosition.z + OffsetPos.z, 0));
                 m.SetVector("_Rotation", new Vector4(Effect_Angle.x, Effect_Angle.y, Effect_Angle.z, 0));
                 m.SetFloat("_Width", Width);
                 m.SetFloat("_waveFreq", Wave_Frequency);

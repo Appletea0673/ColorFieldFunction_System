@@ -23,7 +23,12 @@ float Gradient(float3 p)
 			
 			
 float ContinuousWrapper(float3 p, float shift, float delta, float Shape, float interval, float freq)
-{
+{	
+	//FWHM(1.2倍)
+	//半値全幅の1.2倍程度ずらすと重複が起きない状態からシフトが可能です。
+	//float FWHM = 1.2 * 2.35 * sqrt(delta);
+	//interval += FWHM;
+	
 	if(Shape == 0) return Gaussian(mod((length(p) - shift), 2 * interval) - interval, delta);
 	else if(Shape == 1) return Wavelet(mod((length(p) - shift), 2 * interval) - interval, delta, freq);
 	else return Gradient(mod(p / delta - shift.xxx, 2 * interval) - interval);
@@ -54,10 +59,6 @@ float Fieldfunction(float3 p, float3 angle, float dispersion, float flatMode, fl
 	//波形の周波数:waveFreq
 					
 	//波形間の距離:interval
-				
-	//時定数(5倍)
-	//この値は概ね幅の絶対値に当たる
-	//float tau = 5 * 2.35 * dispersion;
 				
 	float parameter = 0;
 	

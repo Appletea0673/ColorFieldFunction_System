@@ -120,7 +120,7 @@
 				
 				float4 color = i.color;
 				
-				COLOR_FIELD_FUNCTION(color);
+				COLOR_FIELD_FUNCTION_VERTEX(color);
 				
 				#ifdef _SOFTPARTICLES_ON
 					if (_SoftParticlesNearFadeDistance > 0.0 || _SoftParticlesFarFadeDistance > 0.0)

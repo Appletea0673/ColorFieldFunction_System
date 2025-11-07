@@ -1,4 +1,4 @@
-﻿Shader "Appletea's Shader/MeshGPUParticle v3.2"
+﻿Shader "Appletea's Shader/MeshGPUParticle v3.3"
 {
 	Properties
 	{

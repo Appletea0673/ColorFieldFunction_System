@@ -2,20 +2,25 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GPUEmittion
-  m_Shader: {fileID: 4800000, guid: 67eb350906e1194449ecbd2b75b5dd90, type: 3}
-  m_ShaderKeywords: 
+  m_Name: Mesh GPUParticle
+  m_Shader: {fileID: 4800000, guid: 4b66f1a144c80c64da539cef90d2b2f7, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _SHAPE_GAUSSIAN
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -55,6 +60,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -63,29 +69,39 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Interval: 0.2
+    - _INTERVALTOFUNCTION: 0.81
+    - _Interval: 3
+    - _MANUALSHIFT: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OneShotMode: 0
     - _Parallax: 0.02
-    - _Shape: 1
+    - _SLIDESPEED: 1
+    - _Shape: 0
+    - _Size: 7.2
     - _SmoothnessTextureChannel: 0
-    - _SoftParticles: 0
-    - _SoftParticlesFarFadeDistance: 1
-    - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
-    - _Speed: 0.1
+    - _Speed: 5
     - _SrcBlend: 1
     - _UVSec: 0
-    - _Width: 0.0001
+    - _WAVELETFREQ: 1
+    - _WIDTHTOFUNCTION: 0.02
+    - _Width: 0.5
     - _ZWrite: 1
     - _dotMode: 0
     - _flatMode: 0
     - _mShift: 1
-    - _waveFreq: 100
+    - _shape: 0
+    - _waveFreq: 1
     m_Colors:
-    - _CenterPosition: {r: 1, g: 1, b: 0, a: 0}
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _ACTIVECOLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _CENTERPOSITION: {r: 0, g: 0, b: 0, a: 1}
+    - _CenterPosition: {r: -1, g: 1, b: 0, a: 0}
+    - _Color: {r: 0.044544317, g: 0.060776293, b: 0.122641504, a: 1}
+    - _EFFECTROTATION: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PassiveColor: {r: 0.5235849, g: 1, b: 0.63151693, a: 1}
+    - _PASSIVECOLOR: {r: 2, g: 0.43242353, b: 0, a: 1}
+    - _PassiveColor: {r: 0, g: 0.20784187, b: 1, a: 1}
     - _Rotation: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

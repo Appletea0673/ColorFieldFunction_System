@@ -87,7 +87,7 @@ public class LightController : UdonSharpBehaviour
         ObjectContainer OC = this.gameObject.GetComponentInParent<ObjectContainer>();
         // GetterでContainerからデータを取得
         _sharedMaterials = OC.GetMeshRendererObject.sharedMaterials;
-        // _lights = OC.GetLights;
+        _lights = OC.GetLights;
 
         bool EnableSceneChanger = SceneChangerEnable && InterpolationType == 1 && scenechanger != null;
 
@@ -129,10 +129,14 @@ public class LightController : UdonSharpBehaviour
             }
 
         }
-        /*for (int i = 0; i < _lights.Length; i++)
+        
+        if (_lights != null)
         {
-            _lights[i].GetComponent<Light>().color = ActiveColor;
-        }*/
+            for (int i = 0; i < _lights.Length; i++)
+            {
+                _lights[i].GetComponent<Light>().color = ActiveColor;
+            }
+        }
 
         // SceneChanger起動
         if (EnableSceneChanger)

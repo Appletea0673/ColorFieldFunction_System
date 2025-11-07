@@ -21981,7 +21981,7 @@ MonoBehaviour:
   OneShotMode: 0
   Slide_Speed: -5
   Interval: 3
-  Manual_Shift: 1
+  Manual_Shift: 10
   SceneChangerEnable: 1
   scenechanger: {fileID: 693407689}
   LightController_Next: {fileID: 274569557}

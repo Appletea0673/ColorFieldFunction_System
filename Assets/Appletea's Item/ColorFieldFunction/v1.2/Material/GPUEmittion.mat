@@ -99,13 +99,13 @@ Material:
     - _shape: 1
     - _waveFreq: 100
     m_Colors:
-    - _ACTIVECOLOR: {r: 1, g: 1, b: 1, a: 0}
-    - _CENTERPOSITION: {r: 0, g: 0, b: 0, a: 1}
+    - _ACTIVECOLOR: {r: 0, g: 0, b: 0, a: 1}
+    - _CENTERPOSITION: {r: 0, g: 0, b: 0, a: 0}
     - _CenterPosition: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _EFFECTROTATION: {r: 0, g: 0, b: 0, a: 1}
+    - _EFFECTROTATION: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PASSIVECOLOR: {r: 0.009622097, g: 2, b: 0, a: 1}
+    - _PASSIVECOLOR: {r: 0.019244194, g: 4, b: 0, a: 1}
     - _PassiveColor: {r: 0.5235849, g: 1, b: 0.63151693, a: 1}
     - _Rotation: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

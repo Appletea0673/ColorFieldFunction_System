@@ -5,26 +5,26 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-//SceneChangerはLightControllerに線形補間で切り替えれるようにするアタッチメントです。
+// SceneChangerはLightControllerに線形補間で切り替えれるようにするアタッチメントです。
 
 public class SceneChanger : UdonSharpBehaviour
 {
-    //カウントダウン秒数
+    // カウントダウン秒数
     private float ChangeTime = 0;
-    //SceneChangeの種類
+    // SceneChangeの種類
     private int FlagType = 2;
-    //呼び出した本体のScript
+    // 呼び出した本体のScript
     private LightController LightController_Origin;
-    //変化先のLightController
+    // 変化先のLightController
     private LightController LightController_Next;
-    //SetParameterするSharedMaterial
+    // SetParameterするSharedMaterial
     private Material[] WriteMaterial;
 
-    //管理変数
+    // 管理変数
     private float LastTime = 0;
     private bool Callflag = false;
 
-    //Materialの値一時保存用
+    // Materialの値一時保存用
     private Color[] _ActiveColor = new Color[3];
     private Color[] _PassiveColor = new Color[3];
     private Vector3[] _CenterPosition = new Vector3[3];
@@ -34,12 +34,12 @@ public class SceneChanger : UdonSharpBehaviour
     private float[] _Interval = new float[3];
     private float[] _Manual_Shift = new float[3];
 
-    //LightControllerから呼び出されるときの処理
+    // LightControllerから呼び出されるときの処理
     public void CallSceneChange(float _ChangeTime, int _FlagType, LightController _LightController_Origin, LightController _LightController_Next, Material[] _WriteMaterial)
     {
-        //UnityEngine.Debug.Log("Called");
-        //Private変数に移す
-        //途中割込みは演出の表現を考えてある程度許可する
+        // UnityEngine.Debug.Log("Called");
+        // Private変数に移す
+        // 途中割込みは演出の表現を考えてある程度許可する
         if (!Callflag)
         {
             ChangeTime = _ChangeTime;
@@ -51,7 +51,7 @@ public class SceneChanger : UdonSharpBehaviour
         LightController_Origin = _LightController_Origin;
         LightController_Next = _LightController_Next;
 
-        //Update内の処理を開始
+        // Update内の処理を開始
         Callflag = true;
     }
 
@@ -63,14 +63,14 @@ public class SceneChanger : UdonSharpBehaviour
         LinearInterpolation(_ChangeParameter);
         for (int i = 0; i < WriteMaterial.Length; i++)
         {
-            WriteMaterial[i].SetColor("_Color", _ActiveColor[2]);
-            WriteMaterial[i].SetColor("_PassiveColor", _PassiveColor[2]);
-            WriteMaterial[i].SetVector("_CenterPosition", new Vector4(_CenterPosition[2].x, _CenterPosition[2].y, _CenterPosition[2].z, 0));
-            WriteMaterial[i].SetVector("_Rotation", new Vector4(_Rotation[2].x, _Rotation[2].y, _Rotation[2].z, 0));
-            WriteMaterial[i].SetFloat("_Width", _Sigma[2]);
-            WriteMaterial[i].SetFloat("_waveFreq", _Wave_Frequency[2]);
-            WriteMaterial[i].SetFloat("_Interval", _Interval[2]);
-            WriteMaterial[i].SetFloat("_mShift", _Manual_Shift[2]);
+            WriteMaterial[i].SetColor("_ACTIVECOLOR", _ActiveColor[2]);
+            WriteMaterial[i].SetColor("_PASSIVECOLOR", _PassiveColor[2]);
+            WriteMaterial[i].SetVector("_CENTERPOSITION", new Vector4(_CenterPosition[2].x, _CenterPosition[2].y, _CenterPosition[2].z, 0));
+            WriteMaterial[i].SetVector("_EFFECTROTATION", new Vector4(_Rotation[2].x, _Rotation[2].y, _Rotation[2].z, 0));
+            WriteMaterial[i].SetFloat("_WIDTHTOFUNCTION", _Sigma[2]);
+            WriteMaterial[i].SetFloat("_WAVELETFREQ", _Wave_Frequency[2]);
+            WriteMaterial[i].SetFloat("_INTERVALTOFUNCTION", _Interval[2]);
+            WriteMaterial[i].SetFloat("_MANUALSHIFT", _Manual_Shift[2]);
         }
     }
 
@@ -92,23 +92,23 @@ public class SceneChanger : UdonSharpBehaviour
         switch(FlagType)
         {
             case 0:
-                //そもそもなにもかけない場合:なんでこれを呼び出せたか知らないが、Lerpしないように両方同じ色に
+                // そもそもなにもかけない場合:なんでこれを呼び出せたか知らないが、Lerpしないように両方同じ色に
                 CopyShaderParameter();
                 break;
             case 1:
-                //FadeIn
+                // FadeIn
                 CopyShaderParameter();
                 _ActiveColor[0] = Color.black;
                 _PassiveColor[0] = Color.black;
                 break;
             case 2:
-                //FadeOut
+                // FadeOut
                 CopyShaderParameter();
                 _ActiveColor[1] = Color.black;
                 _PassiveColor[1] = Color.black;
                 break;
             case 3:
-                //LinearInterpolation
+                // LinearInterpolation
                 if (LightController_Next = null)
                 {
                     CopyShaderParameter();
@@ -135,13 +135,13 @@ public class SceneChanger : UdonSharpBehaviour
     {
         if (Callflag)
         {
-            //線形補間に利用する0～1のパラメータ
+            // 線形補間に利用する0～1のパラメータ
             float ChangeParameter = Mathf.Clamp01((Time.time - LastTime) / ChangeTime);
-            //UnityEngine.Debug.Log(ChangeParameter);
+            // UnityEngine.Debug.Log(ChangeParameter);
             WriteParameter(ChangeParameter);
             if(ChangeParameter >= 1)
             {
-                //パラメータのリセット
+                // パラメータのリセット
                 ChangeTime = 0;
                 FlagType = 2;
                 LightController_Origin = null;

@@ -82,49 +82,59 @@ public class LightController : UdonSharpBehaviour
 
     private void OnEnable()
     {
-        //↓Awakeに入れたら壊れた。何故？
-        //1つ上の階層にあるObjectContainerを取ってくる
+        // ↓Awakeに入れたら壊れた。何故？
+        // 1つ上の階層にあるObjectContainerを取ってくる
         ObjectContainer OC = this.gameObject.GetComponentInParent<ObjectContainer>();
-        //GetterでContainerからデータを取得
+        // GetterでContainerからデータを取得
         _sharedMaterials = OC.GetMeshRendererObject.sharedMaterials;
-        //_lights = OC.GetLights;
+        // _lights = OC.GetLights;
 
         bool EnableSceneChanger = SceneChangerEnable && InterpolationType == 1 && scenechanger != null;
 
-        //CFFシステム全体の座標を変えた際にCenterPositionを変えないようにするOffset
+        // CFFシステム全体の座標を変えた際にCenterPositionを変えないようにするOffset
         Vector3 OffsetPos = this.transform.position;
 
         for (int i = 0; i < _sharedMaterials.Length; i++)
         {
             Material m = _sharedMaterials[i];
-            if (!EnableSceneChanger)//SceneChanger内で処理するものを除外
+            if (!EnableSceneChanger)// SceneChanger内で処理するものを除外
             {
-                m.SetColor("_Color", ActiveColor);
-                m.SetColor("_PassiveColor", PassiveColor);
-                m.SetVector("_CenterPosition", new Vector4(CenterPosition.x + OffsetPos.x, CenterPosition.y + OffsetPos.y, CenterPosition.z + OffsetPos.z, 0));
-                m.SetVector("_Rotation", new Vector4(Effect_Angle.x, Effect_Angle.y, Effect_Angle.z, 0));
-                m.SetFloat("_Width", Width);
-                m.SetFloat("_waveFreq", Wave_Frequency);
-                m.SetFloat("_Interval", Interval);
-                m.SetFloat("_mShift", Manual_Shift);
+                m.SetColor("_ACTIVECOLOR", ActiveColor);
+                m.SetColor("_PASSIVECOLOR", PassiveColor);
+                m.SetVector("_CENTERPOSITION", new Vector4(CenterPosition.x + OffsetPos.x, CenterPosition.y + OffsetPos.y, CenterPosition.z + OffsetPos.z, 0));
+                m.SetVector("_EFFECTROTATION", new Vector4(Effect_Angle.x, Effect_Angle.y, Effect_Angle.z, 0));
+                m.SetFloat("_WIDTHTOFUNCTION", Width);
+                m.SetFloat("_WAVELETFREQ", Wave_Frequency);
+                m.SetFloat("_INTERVALTOFUNCTION", Interval);
+                m.SetFloat("_MANUALSHIFT", Manual_Shift);
             }
-            
-            
-            
-            m.SetFloat("_2DMode", (float)Convert.ToInt32(_2DMode));
-            m.SetFloat("_dotMode", (float)Convert.ToInt32(DotMode));
-            m.SetFloat("_Shape", (float)Function);
-            
-            m.SetFloat("_Mode", (float)Convert.ToInt32(OneShotMode));
-            m.SetFloat("_Speed", Slide_Speed);
-            
+
+            m.SetFloat("_SLIDESPEED", Slide_Speed);
+
+            if (_2DMode) { m.EnableKeyword("_FLATMODE"); }
+            if (DotMode) { m.EnableKeyword("_DOTMODE"); }
+            if (OneShotMode) { m.EnableKeyword("_ONESHOTMODE"); }
+            if (OneShotMode) { m.EnableKeyword("_ONESHOTMODE"); }
+            switch(Function)
+            {
+                case 0:
+                    m.EnableKeyword("_SHAPE_GAUSSIAN");
+                    break;
+                case 1:
+                    m.EnableKeyword("_SHAPE_WAVELET");
+                    break;
+                case 2:
+                    m.EnableKeyword("_SHAPE_GRADIENT");
+                    break;
+            }
+
         }
         /*for (int i = 0; i < _lights.Length; i++)
         {
             _lights[i].GetComponent<Light>().color = ActiveColor;
         }*/
 
-        //SceneChanger起動
+        // SceneChanger起動
         if (EnableSceneChanger)
         {
             scenechanger.gameObject.SetActive(true);
@@ -134,10 +144,10 @@ public class LightController : UdonSharpBehaviour
     }
     private void OnDisable()
     {
-        //SceneChanger起動
+        // SceneChanger起動
         if (SceneChangerEnable && (InterpolationType == 2 || InterpolationType == 3) && scenechanger != null)
         {
-            //Debug.Log("Trough");
+            // Debug.Log("Trough");
             scenechanger.gameObject.SetActive(true);
             scenechanger.CallSceneChange(FadeTime, InterpolationType, this.GetComponent<LightController>(), LightController_Next, _sharedMaterials);
         }

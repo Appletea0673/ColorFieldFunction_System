@@ -3,7 +3,7 @@ using UnityEngine;
 using VRC.SDKBase;
 using VRC.Udon;
 
-//このScriptは複数のLightControllerからアクセスを受けて対称とするObject(Material)およびShaderを返すものである。
+// このScriptは複数のLightControllerからアクセスを受けて対称とするObject(Material)およびShaderを返すものである。
 
 public class ObjectContainer : UdonSharpBehaviour
 {

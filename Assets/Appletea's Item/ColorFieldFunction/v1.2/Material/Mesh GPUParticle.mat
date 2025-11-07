@@ -69,15 +69,15 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _INTERVALTOFUNCTION: 0.81
+    - _INTERVALTOFUNCTION: 3
     - _Interval: 3
-    - _MANUALSHIFT: 0
+    - _MANUALSHIFT: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _OneShotMode: 0
     - _Parallax: 0.02
-    - _SLIDESPEED: 1
+    - _SLIDESPEED: -5
     - _Shape: 0
     - _Size: 7.2
     - _SmoothnessTextureChannel: 0
@@ -86,7 +86,7 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _WAVELETFREQ: 1
-    - _WIDTHTOFUNCTION: 0.02
+    - _WIDTHTOFUNCTION: 0.5
     - _Width: 0.5
     - _ZWrite: 1
     - _dotMode: 0
@@ -95,13 +95,13 @@ Material:
     - _shape: 0
     - _waveFreq: 1
     m_Colors:
-    - _ACTIVECOLOR: {r: 0, g: 0, b: 0, a: 1}
-    - _CENTERPOSITION: {r: 0, g: 0, b: 0, a: 1}
+    - _ACTIVECOLOR: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+    - _CENTERPOSITION: {r: -1, g: 1, b: 0, a: 0}
     - _CenterPosition: {r: -1, g: 1, b: 0, a: 0}
-    - _Color: {r: 0.044544317, g: 0.060776293, b: 0.122641504, a: 1}
-    - _EFFECTROTATION: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+    - _EFFECTROTATION: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PASSIVECOLOR: {r: 2, g: 0.43242353, b: 0, a: 1}
-    - _PassiveColor: {r: 0, g: 0.20784187, b: 1, a: 1}
+    - _PASSIVECOLOR: {r: 0.5283019, g: 0, b: 0, a: 1}
+    - _PassiveColor: {r: 0.5283019, g: 0, b: 0, a: 1}
     - _Rotation: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

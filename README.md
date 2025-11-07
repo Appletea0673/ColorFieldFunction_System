@@ -1,7 +1,10 @@
 # ColorFieldFunction_System
-ColorFieldFunction is a simple and fast solution of setting color light field.
+![](Images/ColorFieldFunction Logo.png)  
+「Color Field Function」はシンプルかつ高速な空間光源制御システムです。  
+ColorFieldFunction is a simple and fast solution of setting color light field.  
 
-You can get module of latest version here!<br>
+Boothページはこちら！  
+You can get module of latest version here!  
 Booth link -> https://appleteaworkshop.booth.pm/items/5371812
 
 ### Scripts
@@ -17,4 +20,4 @@ Booth link -> https://appleteaworkshop.booth.pm/items/5371812
 
 
 ## Environment
-Unity 2019.4.31f1 LTS ～ Unity 2022.3.6f1 LTS
+Unity 2019.4.31f1 LTS ～ Unity 2022.3.22f1 LTS

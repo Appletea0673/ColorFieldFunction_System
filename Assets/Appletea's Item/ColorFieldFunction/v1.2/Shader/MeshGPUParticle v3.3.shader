@@ -7,6 +7,7 @@
 		[Space(20)]
 		
 		[Header(Color Field Function Settings)]
+		[Toggle(_ENABLE_CFF)] _Enable_CFF("Enable Color Field Function", Float) = 1
 		[Space(10)]
 		[Header(Colors)]
 		[HDR]_ACTIVECOLOR ("Active Color", Color) = (1, 1, 1, 1)

@@ -19,7 +19,6 @@ public class LightController : UdonSharpBehaviour
     [Tooltip("Effect Angle to function")]
     [SerializeField] private Vector3 Effect_Angle = new Vector3();
     [Tooltip("Width to function (Sigma)")]
-    [Range(0.00001f, 10)]
     [SerializeField] private float Width = 1;
     [Tooltip("Toggle 2D Mode")]
     [SerializeField] private bool _2DMode = false;
@@ -41,7 +40,6 @@ public class LightController : UdonSharpBehaviour
     [Header("Continuous Mode")]
     [SerializeField] private float Slide_Speed = 1;
     
-    [Range(0.001f, 10)]
     [SerializeField] private float Interval = 1;
 
     [Header("OneShot Mode")]
@@ -111,11 +109,13 @@ public class LightController : UdonSharpBehaviour
 
             m.SetFloat("_SLIDESPEED", Slide_Speed);
 
-            if (_2DMode) { m.EnableKeyword("_FLATMODE"); }
-            if (DotMode) { m.EnableKeyword("_DOTMODE"); }
-            if (OneShotMode) { m.EnableKeyword("_ONESHOTMODE"); }
-            if (OneShotMode) { m.EnableKeyword("_ONESHOTMODE"); }
-            switch(Function)
+            if (_2DMode) m.EnableKeyword("_FLATMODE");
+            else m.DisableKeyword("_FLATMODE");
+            if (DotMode) m.EnableKeyword("_DOTMODE");
+            else m.DisableKeyword("_DOTMODE");
+            if (OneShotMode) m.EnableKeyword("_ONESHOTMODE");
+            else m.DisableKeyword("_ONESHOTMODE");
+            switch (Function)
             {
                 case 0:
                     m.EnableKeyword("_SHAPE_GAUSSIAN");
